@@ -1,0 +1,44 @@
+{
+  "name": "react-redux-injectors",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "types": "index.d.ts",
+  "repository": "git@github.com:BenLorantfy/react-redux-injectors.git",
+  "author": "Ben <benlorantfy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
+    "@babel/plugin-transform-react-constant-elements": "^7.5.0",
+    "@babel/plugin-transform-react-inline-elements": "^7.2.0",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "@testing-library/react": "^8.0.6",
+    "babel-eslint": "^10.0.2",
+    "jest-cli": "^24.8.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-redux": "^7.1.0",
+    "react-test-renderer": "^16.8.6",
+    "redux-saga": "^1.0.5"
+  },
+  "peerDependencies": {
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-redux": "^7.1.0"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.0",
+    "invariant": "^2.2.4",
+    "lodash": "^4.17.15",
+    "redux": "^4.0.1"
+  }
+}
