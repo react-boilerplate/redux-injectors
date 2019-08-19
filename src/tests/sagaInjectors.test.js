@@ -20,8 +20,8 @@ function configureStore() {
   const enhancers = [applyMiddleware(...middlewares)];
 
   const store = createStore(createReducer(), {}, compose(...enhancers));
-
-  setupStoreForInjectors(store, { createReducer, sagaMiddleware });
+  const runSaga = sagaMiddleware.run;
+  setupStoreForInjectors(store, { createReducer, runSaga });
 
   return store;
 }
