@@ -1,12 +1,12 @@
 import { ComponentType } from "react";
-import { Reducer } from "redux";
+import { Reducer, StoreEnhancer } from "redux";
 import { Saga, Task } from "redux-saga";
 
 export function forceReducerReload(store: {});
-export function setupStoreForInjectors(store: {}, options: { 
+export function createInjectorsEnhancer(options: { 
   runSaga: <S extends Saga<any[]>>(saga: S, ...args: Parameters<S>) => Task,
   createReducer: (injectedReducers: { [key: string]: Reducer }) => Reducer
-});
+}): StoreEnhancer;
 
 export enum SagaInjectionModes {
   RESTART_ON_REMOUNT = "@@saga-injector/restart-on-remount",

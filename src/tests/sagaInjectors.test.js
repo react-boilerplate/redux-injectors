@@ -11,17 +11,16 @@ import getInjectors, {
   ejectSagaFactory,
 } from '../sagaInjectors';
 import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from '../constants';
-import { setupStoreForInjectors } from "../setupStoreForInjectors";
+import { createInjectorsEnhancer } from "../createInjectorsEnhancer";
 
 function configureStore() {
   const createReducer = () => s => s;
   const sagaMiddleware = createSagaMiddleware();
+  const runSaga = sagaMiddleware.run;
   const middlewares = [sagaMiddleware];
-  const enhancers = [applyMiddleware(...middlewares)];
+  const enhancers = [applyMiddleware(...middlewares), createInjectorsEnhancer({ runSaga, createReducer })];
 
   const store = createStore(createReducer(), {}, compose(...enhancers));
-  const runSaga = sagaMiddleware.run;
-  setupStoreForInjectors(store, { createReducer, runSaga });
 
   return store;
 }
