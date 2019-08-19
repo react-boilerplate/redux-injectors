@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "main": "lib/index.js",
   "types": "index.d.ts",
-  "repository": "git@github.com:BenLorantfy/react-redux-injectors.git",
-  "author": "Ben <benlorantfy@gmail.com>",
+  "repository": "git@github.com:react-boilerplate/injectors.git",
+  "author": "react-boilerplate",
   "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir lib",
