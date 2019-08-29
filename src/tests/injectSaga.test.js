@@ -47,7 +47,7 @@ describe('injectSaga decorator', () => {
     sagaInjectors.default.mockClear();
   });
 
-  it('should inject given saga, mode, and props', () => {
+  it('should inject given saga and mode', () => {
     const props = { test: 'test' };
     renderer.create(
       <Provider store={store}>
@@ -58,8 +58,7 @@ describe('injectSaga decorator', () => {
     expect(injectors.injectSaga).toHaveBeenCalledTimes(1);
     expect(injectors.injectSaga).toHaveBeenCalledWith(
       'test',
-      { saga: testSaga, mode: 'testMode' },
-      props,
+      { saga: testSaga, mode: 'testMode' }
     );
   });
 
@@ -92,7 +91,7 @@ describe('injectSaga decorator', () => {
     );
     const {
       props: { children },
-    } = renderedComponent.getInstance();
+    } = renderedComponent.root;
     expect(children.props).toEqual(props);
   });
 });

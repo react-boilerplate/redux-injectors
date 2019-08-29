@@ -31,7 +31,7 @@ export default ({ key, saga, mode }) => WrappedComponent => {
 
       this.injectors = getInjectors(context.store);
 
-      this.injectors.injectSaga(key, { saga, mode }, this.props);
+      this.injectors.injectSaga(key, { saga, mode });
     }
 
     componentWillUnmount() {

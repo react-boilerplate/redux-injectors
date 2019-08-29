@@ -1,5 +1,6 @@
 import invariant from 'invariant';
-import { conformsTo, isFunction } from 'lodash';
+import conformsTo from 'lodash/conformsTo';
+import isFunction from 'lodash/isFunction';
 
 /**
  * @description Creates a store enhancer that when applied will setup the injectors to work

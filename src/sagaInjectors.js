@@ -1,5 +1,8 @@
 import invariant from 'invariant';
-import { isEmpty, isFunction, isString, conformsTo } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import isFunction from 'lodash/isFunction';
+import isString from 'lodash/isString';
+import conformsTo from 'lodash/conformsTo';
 
 import checkStore from './checkStore';
 import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from './constants';
@@ -24,7 +27,7 @@ const checkDescriptor = descriptor => {
 };
 
 export function injectSagaFactory(store, isValid) {
-  return function injectSaga(key, descriptor = {}, args) {
+  return function injectSaga(key, descriptor = {}) {
     if (!isValid) checkStore(store);
 
     const newDescriptor = {
@@ -54,7 +57,7 @@ export function injectSagaFactory(store, isValid) {
       /* eslint-disable no-param-reassign */
       store.injectedSagas[key] = {
         ...newDescriptor,
-        task: store.runSaga(saga, args),
+        task: store.runSaga(saga),
       };
       /* eslint-enable no-param-reassign */
     }

@@ -173,14 +173,6 @@ describe('injectors', () => {
       ).not.toThrow();
     });
 
-    it('should pass args to saga.run', () => {
-      const args = {};
-      store.runSaga = jest.fn();
-      injectSaga('test', { saga: testSaga }, args);
-
-      expect(store.runSaga).toHaveBeenCalledWith(testSaga, args);
-    });
-
     it('should not start daemon and once-till-unmount sagas if were started before', () => {
       store.runSaga = jest.fn();
 
@@ -214,7 +206,7 @@ describe('injectors', () => {
       injectSaga('test', { saga: testSaga1 });
 
       expect(cancel).toHaveBeenCalledTimes(1);
-      expect(store.runSaga).toHaveBeenCalledWith(testSaga1, undefined);
+      expect(store.runSaga).toHaveBeenCalledWith(testSaga1);
     });
 
     it('should not cancel saga if different implementation in production', () => {
