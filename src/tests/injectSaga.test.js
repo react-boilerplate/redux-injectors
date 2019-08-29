@@ -56,10 +56,10 @@ describe('injectSaga decorator', () => {
     );
 
     expect(injectors.injectSaga).toHaveBeenCalledTimes(1);
-    expect(injectors.injectSaga).toHaveBeenCalledWith(
-      'test',
-      { saga: testSaga, mode: 'testMode' }
-    );
+    expect(injectors.injectSaga).toHaveBeenCalledWith('test', {
+      saga: testSaga,
+      mode: 'testMode',
+    });
   });
 
   it('should eject on unmount with a correct saga key', () => {

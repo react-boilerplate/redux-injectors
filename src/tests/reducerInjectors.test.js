@@ -5,7 +5,7 @@
 import identity from 'lodash/identity';
 import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { createInjectorsEnhancer } from "../createInjectorsEnhancer";
+import { createInjectorsEnhancer } from '../createInjectorsEnhancer';
 import getInjectors, { injectReducerFactory } from '../reducerInjectors';
 
 const initialState = { reduced: 'soon' };
@@ -16,22 +16,26 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         reduced: action.payload,
-      }
+      };
     default:
       return state;
   }
 };
 
 function configureStore() {
-  const createReducer = (injectedReducers = {}) => combineReducers({
-    ...injectedReducers,
-    nonInjected: (s = {}) => s,
-  });
+  const createReducer = (injectedReducers = {}) =>
+    combineReducers({
+      ...injectedReducers,
+      nonInjected: (s = {}) => s,
+    });
 
   const sagaMiddleware = createSagaMiddleware();
   const runSaga = sagaMiddleware.run;
   const middlewares = [sagaMiddleware];
-  const enhancers = [applyMiddleware(...middlewares), createInjectorsEnhancer({ createReducer, runSaga })];
+  const enhancers = [
+    applyMiddleware(...middlewares),
+    createInjectorsEnhancer({ createReducer, runSaga }),
+  ];
 
   const store = createStore(createReducer(), {}, compose(...enhancers));
 

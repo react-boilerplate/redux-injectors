@@ -6,4 +6,4 @@ export const SagaInjectionModes = {
   RESTART_ON_REMOUNT,
   DAEMON,
   ONCE_TILL_UNMOUNT,
-}
+};
