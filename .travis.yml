@@ -7,6 +7,7 @@ node_js:
 script:
   - npm test -- --maxWorkers=4
   - npm run build
+  - npm run lint
 
 cache:
   directories:
