@@ -1,0 +1,44 @@
+{
+  "name": "react-redux-injectors",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "types": "index.d.ts",
+  "repository": "git@github.com:react-boilerplate/injectors.git",
+  "author": "react-boilerplate",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.5.5",
+    "@babel/core": "7.5.5",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-transform-modules-commonjs": "7.5.0",
+    "@babel/plugin-transform-react-constant-elements": "7.5.0",
+    "@babel/plugin-transform-react-inline-elements": "7.2.0",
+    "@babel/preset-env": "7.5.5",
+    "@babel/preset-react": "7.0.0",
+    "@testing-library/react": "8.0.9",
+    "babel-eslint": "10.0.3",
+    "core-js": "3.2.1",
+    "jest-cli": "24.9.0",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-redux": "7.1.1",
+    "react-test-renderer": "16.9.0",
+    "redux-saga": "1.0.5",
+    "regenerator-runtime": "0.13.3"
+  },
+  "peerDependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-redux": "^7.1.0"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.0",
+    "invariant": "^2.2.4",
+    "lodash": "^4.17.15",
+    "redux": "^4.0.1"
+  }
+}
