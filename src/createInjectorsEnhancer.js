@@ -3,10 +3,41 @@ import conformsTo from 'lodash/conformsTo';
 import isFunction from 'lodash/isFunction';
 
 /**
- * @description Creates a store enhancer that when applied will setup the injectors to work
+ * Creates a store enhancer that when applied will setup the store to allow the
+ * injectors to work properly
  *
- * @param options.runSaga A function that runs a saga. Should ussually be `sagaMiddleware.run`
- * @param options.createReducer A function that should create and return the root reducer. It's passed the injected reducers as the first parameter. These should be added to the root reducer using `combineReducer` or a similar method.
+ * @param {Object} options
+ * @param {function} options.runSaga A function that runs a saga. Should ussually be `sagaMiddleware.run`
+ * @param {function} options.createReducer A function that should create and
+ *                                         return the root reducer. It's passed the injected reducers as the first
+ *                                         parameter. These should be added to the root reducer using `combineReducer`
+ *                                         or a similar method.
+ *
+ * @example
+ *
+ * import { createStore } from "redux"
+ * import { createInjectorsEnhancer } from "injectors"
+ *
+ * function createReducer(injectedReducers = {}) {
+ *  const rootReducer = combineReducers({
+ *    ...injectedReducers,
+ *    // other non-injected reducers can go here...
+ *  });
+ *
+ *  return rootReducer
+ * }
+ * const runSaga = sagaMiddleware.run
+ *
+ * const store = createStore(
+ *  createReducer(),
+ *  undefined,
+ *  createInjectorsEnhancer({
+ *    createReducer,
+ *    runSaga,
+ *  })
+ * )
+ *
+ * @public
  */
 export function createInjectorsEnhancer(options) {
   invariant(

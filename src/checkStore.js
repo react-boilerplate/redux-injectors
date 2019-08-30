@@ -4,7 +4,7 @@ import isObject from 'lodash/isObject';
 import invariant from 'invariant';
 
 /**
- * Validate the shape of redux store
+ * Validates the redux store is setup properly to work with this library.
  */
 export default function checkStore(store) {
   const shape = {

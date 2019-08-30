@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "bili --format cjs --format esm",
+    "build:docs": "node ./scripts/generateDocs.js",
     "test": "jest",
     "lint": "eslint ./src",
     "prettify": "prettier --write",
@@ -33,6 +34,7 @@
     "babel-eslint": "10.0.3",
     "bili": "4.8.1",
     "core-js": "3.2.1",
+    "documentation": "12.1.1",
     "eslint": "6.2.2",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "6.1.0",
