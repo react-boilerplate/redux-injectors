@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "bili --format cjs --format esm",
-    "build:docs": "node ./scripts/generateDocs.js",
+    "build:docs": "documentation build -f md -o docs/api.md --markdown-toc ./src/index.js --access=public",
     "test": "jest",
     "lint": "eslint ./src",
     "prettify": "prettier --write",

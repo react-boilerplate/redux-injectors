@@ -153,7 +153,7 @@ const runSaga = sagaMiddleware.run
 const store = createStore(
  createReducer(),
  undefined,
- createInjectorsEnhancer({ 
+ createInjectorsEnhancer({
    createReducer,
    runSaga,
  })
