@@ -3,7 +3,7 @@ export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
 /**
- * All the possible saga injection behaviours
+ * An enum of all the possible saga injection behaviours
  *
  * @property {String} RESTART_ON_REMOUNT The saga will be started on component instantiation and cancelled with
  * `task.cancel()` on component unmount for improved performance.

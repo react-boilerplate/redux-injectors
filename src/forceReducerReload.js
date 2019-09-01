@@ -1,6 +1,6 @@
 /**
  * Forces a reload of the injected reducers. i.e. Causes `createReducer` to be
- * called again with the injected reducers
+ * called again with the injected reducers. Useful for hot-reloading.
  *
  * @param store The redux store that has been configured with
  *                  `createInjectorsEnhancer`

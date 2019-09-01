@@ -25,7 +25,7 @@ import getInjectors from './sagaInjectors';
  *  }
  * }
  *
- * export default injectSaga({ key: "books", reducer: booksSaga })(BooksManager)
+ * export default injectSaga({ key: "books", saga: booksSaga })(BooksManager)
  *
  * @public
  *
@@ -70,6 +70,15 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
  * instantiation and never canceled or started again. @see
  * {@link SagaInjectionModes} for the other possible modes.
+ *
+ * @example
+ *
+ * function BooksManager() {
+ *  useInjectSaga({ key: "books", saga: booksSaga })
+ *
+ *  return null;
+ * }
+ *
  * @public
  */
 const useInjectSaga = ({ key, saga, mode }) => {

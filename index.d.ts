@@ -4,7 +4,7 @@ import { Saga, Task } from "redux-saga";
 
 /**
  * Forces a reload of the injected reducers. i.e. Causes `createReducer` to be
- * called again with the injected reducers
+ * called again with the injected reducers. Useful for hot-reloading.
  *
  * @param store The redux store that has been configured with
  *                  `createInjectorsEnhancer`
@@ -22,15 +22,15 @@ export function forceReducerReload(store: {});
  * @param {Object} options
  * @param {function} options.runSaga A function that runs a saga. Should ussually be `sagaMiddleware.run`
  * @param {function} options.createReducer A function that should create and
- *                                         return the root reducer. It's passed the injected reducers as the first
- *                                         parameter. These should be added to the root reducer using `combineReducer`
- *                                         or a similar method.
- * 
+ * return the root reducer. It's passed the injected reducers as the first
+ * parameter. These should be added to the root reducer using `combineReducer`
+ * or a similar method.
+ *
  * @example
  *
  * import { createStore } from "redux"
  * import { createInjectorsEnhancer } from "injectors"
- * 
+ *
  * function createReducer(injectedReducers = {}) {
  *  const rootReducer = combineReducers({
  *    ...injectedReducers,
@@ -40,11 +40,11 @@ export function forceReducerReload(store: {});
  *  return rootReducer
  * }
  * const runSaga = sagaMiddleware.run
- * 
+ *
  * const store = createStore(
  *  createReducer(),
  *  undefined,
- *  createInjectorsEnhancer({ 
+ *  createInjectorsEnhancer({
  *    createReducer,
  *    runSaga,
  *  })
@@ -58,7 +58,15 @@ export function createInjectorsEnhancer(options: {
 }): StoreEnhancer;
 
 /**
- * All the possible saga injection behaviours
+ * An enum of all the possible saga injection behaviours
+ *
+ * @property {String} RESTART_ON_REMOUNT The saga will be started on component instantiation and cancelled with
+ * `task.cancel()` on component unmount for improved performance.
+ * @property {String} DAEMON Causes the saga to be started on component instantiation and never canceled
+ * or started again.
+ * @property {String} ONCE_TILL_UNMOUNT Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
+ *
+ * @enum
  * @public
  */
 export enum SagaInjectionModes {
@@ -75,28 +83,23 @@ export enum SagaInjectionModes {
  * @param {Object} options
  * @param {string} options.key The key to inject the saga under
  * @param {function} options.saga The saga that will be injected
- * @param {string} [options.mode] The injection behaviour to use. The default
- * is `SagaInjectionModes.DAEMON` which causes the saga to be started on
- * component instantiation and never canceled or started again. Another two
- * options:
- * - `SagaInjectionModes.RESTART_ON_REMOUNT` — the saga will be started on
- *   component instantiation and cancelled with `task.cancel()` on component
- *   unmount for improved performance,
- * - `SagaInjectionModes.ONCE_TILL_UNMOUNT` — behaves like 'RESTART_ON_REMOUNT'
- *   but never runs it again.
- * 
+ * @param {string} [options.mode] The injection behaviour to use. The default is
+ * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+ * instantiation and never canceled or started again. @see
+ * {@link SagaInjectionModes} for the other possible modes.
+ *
  * @example
- * 
+ *
  * class BooksManager extends React.PureComponent {
  *  render() {
  *    return null;
  *  }
  * }
- * 
- * export default injectSaga({ key: "books", reducer: booksSaga })(BooksManager)
- * 
+ *
+ * export default injectSaga({ key: "books", saga: booksSaga })(BooksManager)
+ *
  * @public
- * 
+ *
  */
 export function injectSaga(options: { key: string, saga: Saga, mode?: SagaInjectionModes }): <T extends ComponentType>(Component: T) => T;
 
@@ -107,36 +110,40 @@ export function injectSaga(options: { key: string, saga: Saga, mode?: SagaInject
  * @param {Object} options
  * @param {string} options.key The key to inject the reducer under
  * @param {function} options.reducer The reducer that will be injected
- * 
+ *
  * @example
- * 
+ *
  * class BooksManager extends React.PureComponent {
  *  render() {
  *    return null;
  *  }
  * }
- * 
+ *
  * export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
- * 
+ *
  * @public
  */
-export function injectReducer(options: { key: string, reducer: Reducer }): <T extends ComponentType>(Component: T) => T;
 
+export function injectReducer(options: { key: string, reducer: Reducer }): <T extends ComponentType>(Component: T) => T;
 /**
  * A react hook that dynamically injects a saga when the hook is run
  *
  * @param {Object} options
  * @param {string} options.key The key to inject the saga under
- * @param {function} options.reducer The saga that will be injected
- * @param {string} [options.mode] The injection behaviour to use. The default
- * is `SagaInjectionModes.DAEMON` which causes the saga to be started on
- * component instantiation and never canceled or started again. Another two
- * options:
- * - `SagaInjectionModes.RESTART_ON_REMOUNT` — the saga will be started on
- *   component instantiation and cancelled with `task.cancel()` on component
- *   unmount for improved performance,
- * - `SagaInjectionModes.ONCE_TILL_UNMOUNT` — behaves like 'RESTART_ON_REMOUNT'
- *   but never runs it again.
+ * @param {function} options.saga The saga that will be injected
+ * @param {string} [options.mode] The injection behaviour to use. The default is
+ * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+ * instantiation and never canceled or started again. @see
+ * {@link SagaInjectionModes} for the other possible modes.
+ * 
+ * @example
+ *
+ * function BooksManager() {
+ *  useInjectSaga({ key: "books", saga: booksSaga })
+ *
+ *  return null;
+ * }
+ * 
  * @public
  */
 export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInjectionModes }): void;
@@ -147,6 +154,15 @@ export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInj
  * @param {Object} options
  * @param {string} options.key The key to inject the reducer under
  * @param {function} options.reducer The reducer that will be injected
+ * 
+ * @example
+ * 
+ * function BooksManager() {
+ *  useInjectReducer({ key: "books", reducer: booksReducer })
+ *
+ *  return null;
+ * }
+ * 
  * @public
  */
 export function useInjectReducer(options: { key: string, reducer: Reducer }): void;

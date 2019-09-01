@@ -54,6 +54,15 @@ export default ({ key, reducer }) => WrappedComponent => {
  * @param {Object} options
  * @param {string} options.key The key to inject the reducer under
  * @param {function} options.reducer The reducer that will be injected
+ *
+ * @example
+ *
+ * function BooksManager() {
+ *  useInjectReducer({ key: "books", reducer: booksReducer })
+ *
+ *  return null;
+ * }
+ *
  * @public
  */
 const useInjectReducer = ({ key, reducer }) => {
