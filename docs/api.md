@@ -2,132 +2,48 @@
 
 ### Table of Contents
 
--   [forceReducerReload][1]
-    -   [Parameters][2]
-    -   [Examples][3]
--   [injectReducer][4]
-    -   [Parameters][5]
-    -   [Examples][6]
--   [useInjectReducer][7]
-    -   [Parameters][8]
--   [injectSaga][9]
-    -   [Parameters][10]
-    -   [Examples][11]
--   [useInjectSaga][12]
-    -   [Parameters][13]
--   [createInjectorsEnhancer][14]
-    -   [Parameters][15]
-    -   [Examples][16]
--   [SagaInjectionModes][17]
-    -   [Properties][18]
+-   [Setup][1]
+    -   [createInjectorsEnhancer][2]
+        -   [Parameters][3]
+        -   [Examples][4]
+-   [Injectors][5]
+    -   [injectReducer][6]
+        -   [Parameters][7]
+        -   [Examples][8]
+    -   [useInjectReducer][9]
+        -   [Parameters][10]
+    -   [injectSaga][11]
+        -   [Parameters][12]
+        -   [Examples][13]
+    -   [useInjectSaga][14]
+        -   [Parameters][15]
+-   [Misc][16]
+    -   [forceReducerReload][17]
+        -   [Parameters][18]
+        -   [Examples][19]
+    -   [SagaInjectionModes][20]
+        -   [Properties][21]
 
-## forceReducerReload
+## Setup
 
-Forces a reload of the injected reducers. i.e. Causes `createReducer` to be
-called again with the injected reducers
 
-### Parameters
 
--   `store`  The redux store that has been configured with
-                     `createInjectorsEnhancer`
 
-### Examples
-
-```javascript
-forceReducerReload(store);
-```
-
-## injectReducer
-
-A higher-order component that dynamically injects a reducer when the
-component is instantiated
-
-### Parameters
-
--   `options` **[Object][19]** 
-    -   `options.key` **[string][20]** The key to inject the reducer under
-    -   `options.reducer` **[function][21]** The reducer that will be injected
-
-### Examples
-
-```javascript
-class BooksManager extends React.PureComponent {
- render() {
-   return null;
- }
-}
-
-export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
-```
-
-## useInjectReducer
-
-A react hook that dynamically injects a reducer when the hook is run
-
-### Parameters
-
--   `options` **[Object][19]** 
-    -   `options.key` **[string][20]** The key to inject the reducer under
-    -   `options.reducer` **[function][21]** The reducer that will be injected
-
-## injectSaga
-
-A higher-order component that dynamically injects a saga when the component
-is instantiated. There are several possible "modes" / "behaviours" that
-dictate how and when the saga should be injected and ejected
-
-### Parameters
-
--   `options` **[Object][19]** 
-    -   `options.key` **[string][20]** The key to inject the saga under
-    -   `options.saga` **[function][21]** The saga that will be injected
-    -   `options.mode` **[string][20]?** The injection behaviour to use. The default is
-        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
-        instantiation and never canceled or started again. @see
-        [SagaInjectionModes][17] for the other possible modes.
-
-### Examples
-
-```javascript
-class BooksManager extends React.PureComponent {
- render() {
-   return null;
- }
-}
-
-export default injectSaga({ key: "books", reducer: booksSaga })(BooksManager)
-```
-
-## useInjectSaga
-
-A react hook that dynamically injects a saga when the hook is run
-
-### Parameters
-
--   `options` **[Object][19]** 
-    -   `options.key` **[string][20]** The key to inject the saga under
-    -   `options.mode` **[string][20]?** The injection behaviour to use. The default is
-        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
-        instantiation and never canceled or started again. @see
-        [SagaInjectionModes][17] for the other possible modes.
-    -   `options.reducer` **[function][21]** The saga that will be injected
-    -   `options.saga`  
-
-## createInjectorsEnhancer
+### createInjectorsEnhancer
 
 Creates a store enhancer that when applied will setup the store to allow the
 injectors to work properly
 
-### Parameters
+#### Parameters
 
--   `options` **[Object][19]** 
-    -   `options.runSaga` **[function][21]** A function that runs a saga. Should ussually be `sagaMiddleware.run`
-    -   `options.createReducer` **[function][21]** A function that should create and
+-   `options` **[Object][22]** 
+    -   `options.runSaga` **[function][23]** A function that runs a saga. Should ussually be `sagaMiddleware.run`
+    -   `options.createReducer` **[function][23]** A function that should create and
                                                 return the root reducer. It's passed the injected reducers as the first
                                                 parameter. These should be added to the root reducer using `combineReducer`
                                                 or a similar method.
 
-### Examples
+#### Examples
 
 ```javascript
 import { createStore } from "redux"
@@ -153,58 +69,164 @@ const store = createStore(
 )
 ```
 
-## SagaInjectionModes
+## Injectors
+
+
+
+
+### injectReducer
+
+A higher-order component that dynamically injects a reducer when the
+component is instantiated
+
+#### Parameters
+
+-   `options` **[Object][22]** 
+    -   `options.key` **[string][24]** The key to inject the reducer under
+    -   `options.reducer` **[function][23]** The reducer that will be injected
+
+#### Examples
+
+```javascript
+class BooksManager extends React.PureComponent {
+ render() {
+   return null;
+ }
+}
+
+export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
+```
+
+### useInjectReducer
+
+A react hook that dynamically injects a reducer when the hook is run
+
+#### Parameters
+
+-   `options` **[Object][22]** 
+    -   `options.key` **[string][24]** The key to inject the reducer under
+    -   `options.reducer` **[function][23]** The reducer that will be injected
+
+### injectSaga
+
+A higher-order component that dynamically injects a saga when the component
+is instantiated. There are several possible "modes" / "behaviours" that
+dictate how and when the saga should be injected and ejected
+
+#### Parameters
+
+-   `options` **[Object][22]** 
+    -   `options.key` **[string][24]** The key to inject the saga under
+    -   `options.saga` **[function][23]** The saga that will be injected
+    -   `options.mode` **[string][24]?** The injection behaviour to use. The default is
+        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+        instantiation and never canceled or started again. @see
+        [SagaInjectionModes][20] for the other possible modes.
+
+#### Examples
+
+```javascript
+class BooksManager extends React.PureComponent {
+ render() {
+   return null;
+ }
+}
+
+export default injectSaga({ key: "books", reducer: booksSaga })(BooksManager)
+```
+
+### useInjectSaga
+
+A react hook that dynamically injects a saga when the hook is run
+
+#### Parameters
+
+-   `options` **[Object][22]** 
+    -   `options.key` **[string][24]** The key to inject the saga under
+    -   `options.mode` **[string][24]?** The injection behaviour to use. The default is
+        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+        instantiation and never canceled or started again. @see
+        [SagaInjectionModes][20] for the other possible modes.
+    -   `options.reducer` **[function][23]** The saga that will be injected
+    -   `options.saga`  
+
+## Misc
+
+
+
+
+### forceReducerReload
+
+Forces a reload of the injected reducers. i.e. Causes `createReducer` to be
+called again with the injected reducers
+
+#### Parameters
+
+-   `store`  The redux store that has been configured with
+                     `createInjectorsEnhancer`
+
+#### Examples
+
+```javascript
+forceReducerReload(store);
+```
+
+### SagaInjectionModes
 
 All the possible saga injection behaviours
 
-Type: [String][20]
+#### Properties
 
-### Properties
-
--   `RESTART_ON_REMOUNT` **[String][20]** The saga will be started on component instantiation and cancelled with
+-   `RESTART_ON_REMOUNT` **[String][24]** The saga will be started on component instantiation and cancelled with
     `task.cancel()` on component unmount for improved performance.
--   `DAEMON` **[String][20]** Causes the saga to be started on component instantiation and never canceled
+-   `DAEMON` **[String][24]** Causes the saga to be started on component instantiation and never canceled
     or started again.
--   `ONCE_TILL_UNMOUNT` **[String][20]** Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
+-   `ONCE_TILL_UNMOUNT` **[String][24]** Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
 
-[1]: #forcereducerreload
+[1]: #setup
 
-[2]: #parameters
+[2]: #createinjectorsenhancer
 
-[3]: #examples
+[3]: #parameters
 
-[4]: #injectreducer
+[4]: #examples
 
-[5]: #parameters-1
+[5]: #injectors
 
-[6]: #examples-1
+[6]: #injectreducer
 
-[7]: #useinjectreducer
+[7]: #parameters-1
 
-[8]: #parameters-2
+[8]: #examples-1
 
-[9]: #injectsaga
+[9]: #useinjectreducer
 
-[10]: #parameters-3
+[10]: #parameters-2
 
-[11]: #examples-2
+[11]: #injectsaga
 
-[12]: #useinjectsaga
+[12]: #parameters-3
 
-[13]: #parameters-4
+[13]: #examples-2
 
-[14]: #createinjectorsenhancer
+[14]: #useinjectsaga
 
-[15]: #parameters-5
+[15]: #parameters-4
 
-[16]: #examples-3
+[16]: #misc
 
-[17]: #sagainjectionmodes
+[17]: #forcereducerreload
 
-[18]: #properties
+[18]: #parameters-5
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[19]: #examples-3
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[20]: #sagainjectionmodes
 
-[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[21]: #properties
+
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[23]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String

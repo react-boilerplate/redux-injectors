@@ -11,7 +11,7 @@ export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
  * or started again.
  * @property {String} ONCE_TILL_UNMOUNT Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
  *
- * @enum {String}
+ * @enum
  * @public
  */
 export const SagaInjectionModes = {
