@@ -19,6 +19,7 @@
     -   [Parameters][15]
     -   [Examples][16]
 -   [SagaInjectionModes][17]
+    -   [Properties][18]
 
 ## forceReducerReload
 
@@ -43,9 +44,9 @@ component is instantiated
 
 ### Parameters
 
--   `options` **[Object][18]** 
-    -   `options.key` **[string][19]** The key to inject the reducer under
-    -   `options.reducer` **[function][20]** The reducer that will be injected
+-   `options` **[Object][19]** 
+    -   `options.key` **[string][20]** The key to inject the reducer under
+    -   `options.reducer` **[function][21]** The reducer that will be injected
 
 ### Examples
 
@@ -65,9 +66,9 @@ A react hook that dynamically injects a reducer when the hook is run
 
 ### Parameters
 
--   `options` **[Object][18]** 
-    -   `options.key` **[string][19]** The key to inject the reducer under
-    -   `options.reducer` **[function][20]** The reducer that will be injected
+-   `options` **[Object][19]** 
+    -   `options.key` **[string][20]** The key to inject the reducer under
+    -   `options.reducer` **[function][21]** The reducer that will be injected
 
 ## injectSaga
 
@@ -77,17 +78,13 @@ dictate how and when the saga should be injected and ejected
 
 ### Parameters
 
--   `options` **[Object][18]** 
-    -   `options.key` **[string][19]** The key to inject the saga under
-    -   `options.saga` **[function][20]** The saga that will be injected
-    -   `options.mode` **[string][19]?** The injection behaviour to use. The default
-        is `SagaInjectionModes.DAEMON` which causes the saga to be started on
-        component instantiation and never canceled or started again. Another two
-        options:-   `SagaInjectionModes.RESTART_ON_REMOUNT` — the saga will be started on
-            component instantiation and cancelled with `task.cancel()` on component
-            unmount for improved performance,
-        -   `SagaInjectionModes.ONCE_TILL_UNMOUNT` — behaves like 'RESTART_ON_REMOUNT'
-            but never runs it again.
+-   `options` **[Object][19]** 
+    -   `options.key` **[string][20]** The key to inject the saga under
+    -   `options.saga` **[function][21]** The saga that will be injected
+    -   `options.mode` **[string][20]?** The injection behaviour to use. The default is
+        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+        instantiation and never canceled or started again. @see
+        [SagaInjectionModes][17] for the other possible modes.
 
 ### Examples
 
@@ -107,17 +104,13 @@ A react hook that dynamically injects a saga when the hook is run
 
 ### Parameters
 
--   `options` **[Object][18]** 
-    -   `options.key` **[string][19]** The key to inject the saga under
-    -   `options.mode` **[string][19]?** The injection behaviour to use. The default
-        is `SagaInjectionModes.DAEMON` which causes the saga to be started on
-        component instantiation and never canceled or started again. Another two
-        options:-   `SagaInjectionModes.RESTART_ON_REMOUNT` — the saga will be started on
-            component instantiation and cancelled with `task.cancel()` on component
-            unmount for improved performance,
-        -   `SagaInjectionModes.ONCE_TILL_UNMOUNT` — behaves like 'RESTART_ON_REMOUNT'
-            but never runs it again.
-    -   `options.reducer` **[function][20]** The saga that will be injected
+-   `options` **[Object][19]** 
+    -   `options.key` **[string][20]** The key to inject the saga under
+    -   `options.mode` **[string][20]?** The injection behaviour to use. The default is
+        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+        instantiation and never canceled or started again. @see
+        [SagaInjectionModes][17] for the other possible modes.
+    -   `options.reducer` **[function][21]** The saga that will be injected
     -   `options.saga`  
 
 ## createInjectorsEnhancer
@@ -127,9 +120,9 @@ injectors to work properly
 
 ### Parameters
 
--   `options` **[Object][18]** 
-    -   `options.runSaga` **[function][20]** A function that runs a saga. Should ussually be `sagaMiddleware.run`
-    -   `options.createReducer` **[function][20]** A function that should create and
+-   `options` **[Object][19]** 
+    -   `options.runSaga` **[function][21]** A function that runs a saga. Should ussually be `sagaMiddleware.run`
+    -   `options.createReducer` **[function][21]** A function that should create and
                                                 return the root reducer. It's passed the injected reducers as the first
                                                 parameter. These should be added to the root reducer using `combineReducer`
                                                 or a similar method.
@@ -163,6 +156,16 @@ const store = createStore(
 ## SagaInjectionModes
 
 All the possible saga injection behaviours
+
+Type: [String][20]
+
+### Properties
+
+-   `RESTART_ON_REMOUNT` **[String][20]** The saga will be started on component instantiation and cancelled with
+    `task.cancel()` on component unmount for improved performance.
+-   `DAEMON` **[String][20]** Causes the saga to be started on component instantiation and never canceled
+    or started again.
+-   `ONCE_TILL_UNMOUNT` **[String][20]** Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
 
 [1]: #forcereducerreload
 
@@ -198,8 +201,10 @@ All the possible saga injection behaviours
 
 [17]: #sagainjectionmodes
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[18]: #properties
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function

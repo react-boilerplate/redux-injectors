@@ -12,15 +12,10 @@ import getInjectors from './sagaInjectors';
  * @param {Object} options
  * @param {string} options.key The key to inject the saga under
  * @param {function} options.saga The saga that will be injected
- * @param {string} [options.mode] The injection behaviour to use. The default
- * is `SagaInjectionModes.DAEMON` which causes the saga to be started on
- * component instantiation and never canceled or started again. Another two
- * options:
- * - `SagaInjectionModes.RESTART_ON_REMOUNT` — the saga will be started on
- *   component instantiation and cancelled with `task.cancel()` on component
- *   unmount for improved performance,
- * - `SagaInjectionModes.ONCE_TILL_UNMOUNT` — behaves like 'RESTART_ON_REMOUNT'
- *   but never runs it again.
+ * @param {string} [options.mode] The injection behaviour to use. The default is
+ * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+ * instantiation and never canceled or started again. @see
+ * {@link SagaInjectionModes} for the other possible modes.
  *
  * @example
  *
@@ -71,15 +66,10 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  * @param {Object} options
  * @param {string} options.key The key to inject the saga under
  * @param {function} options.reducer The saga that will be injected
- * @param {string} [options.mode] The injection behaviour to use. The default
- * is `SagaInjectionModes.DAEMON` which causes the saga to be started on
- * component instantiation and never canceled or started again. Another two
- * options:
- * - `SagaInjectionModes.RESTART_ON_REMOUNT` — the saga will be started on
- *   component instantiation and cancelled with `task.cancel()` on component
- *   unmount for improved performance,
- * - `SagaInjectionModes.ONCE_TILL_UNMOUNT` — behaves like 'RESTART_ON_REMOUNT'
- *   but never runs it again.
+ * @param {string} [options.mode] The injection behaviour to use. The default is
+ * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
+ * instantiation and never canceled or started again. @see
+ * {@link SagaInjectionModes} for the other possible modes.
  * @public
  */
 const useInjectSaga = ({ key, saga, mode }) => {

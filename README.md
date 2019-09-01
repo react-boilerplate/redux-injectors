@@ -9,6 +9,7 @@ npm install injectors # (or yarn add injectors)
 ### Setting up the redux store
 The redux store needs to be configured to allow this library to work. The library exports a store enhancer that can be passed to the `createStore` function.
 ```js
+import { createStore } from "redux";
 import { createInjectorsEnhancer } from "injectors";
 
 const store = createStore(
@@ -34,7 +35,7 @@ function createReducer(injectedReducers = {}) {
 }
 ```
 
-`runSaga` should be ussually be `sagaMiddleware.run`. 
+`runSaga` should ussually be `sagaMiddleware.run`. 
 
 ```js
   const runSaga = sagaMiddleware.run;
