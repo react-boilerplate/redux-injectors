@@ -143,12 +143,11 @@ A react hook that dynamically injects a saga when the hook is run
 
 -   `options` **[Object][22]** 
     -   `options.key` **[string][24]** The key to inject the saga under
+    -   `options.saga` **[function][23]** The saga that will be injected
     -   `options.mode` **[string][24]?** The injection behaviour to use. The default is
         `SagaInjectionModes.DAEMON` which causes the saga to be started on component
         instantiation and never canceled or started again. @see
         [SagaInjectionModes][20] for the other possible modes.
-    -   `options.reducer` **[function][23]** The saga that will be injected
-    -   `options.saga`  
 
 ## Misc
 
