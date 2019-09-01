@@ -65,7 +65,7 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  *
  * @param {Object} options
  * @param {string} options.key The key to inject the saga under
- * @param {function} options.reducer The saga that will be injected
+ * @param {function} options.saga The saga that will be injected
  * @param {string} [options.mode] The injection behaviour to use. The default is
  * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
  * instantiation and never canceled or started again. @see
