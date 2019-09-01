@@ -61,7 +61,7 @@ export default compose(
 ```
 
 ## Documentation
-- [**API reference**](docs/api.md): Detailed description of the API
+See the [**API reference**](docs/api.md)
 
 ## Motivation
 There's a few reasons why you might not want to load all your reducers and sagas upfront:
