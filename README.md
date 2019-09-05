@@ -1,5 +1,5 @@
 # injectors
-Asynchronous injectors for [redux](https://redux.js.org/) reducers and [redux-saga](https://redux-saga.js.org/) sagas. Allows adding reducers/sagas as needed instead of loading all reducers/sagas upfront. As used by react-boilerplate.
+Dynamically load [redux](https://redux.js.org/) reducers and [redux-saga](https://redux-saga.js.org/) sagas as needed, instead of loading all of them upfront. See [motivation](#Motivation). As used by react-boilerplate.
 
 ## Getting Started
 ```bash
@@ -64,7 +64,7 @@ Or, alternatively, using hooks:
 ```js
 import { useInjectReducer, useInjectSaga } from "injectors";
 
-function BooksManager() {
+export default function BooksManager() {
   useInjectReducer({ key: "books", reducer: booksReducer });
   useInjectSaga({ key: "books", saga: booksSaga });
 
