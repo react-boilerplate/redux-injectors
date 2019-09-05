@@ -39,7 +39,7 @@ injectors to work properly
 #### Parameters
 
 -   `options` **[Object][24]** 
-    -   `options.runSaga` **[function][25]** A function that runs a saga. Should ussually be `sagaMiddleware.run`
+    -   `options.runSaga` **[function][25]** A function that runs a saga. Should usually be `sagaMiddleware.run`
     -   `options.createReducer` **[function][25]** A function that should create and
         return the root reducer. It's passed the injected reducers as the first
         parameter. These should be added to the root reducer using `combineReducer`

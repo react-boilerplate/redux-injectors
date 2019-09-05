@@ -22,7 +22,7 @@ const store = createStore(
 )
 ```
 
-Note the `createInjectorsEnhancer` function takes two options. `createReducer` should be a function that when called will create the root reducer. It's passed the injected reducers as an object of key-reducer pairs.
+Note the `createInjectorsEnhancer` function takes two options. `createReducer` should be a function that when called will return the root reducer. It's passed the injected reducers as an object of key-reducer pairs.
 
 ```js
 function createReducer(injectedReducers = {}) {
@@ -35,7 +35,7 @@ function createReducer(injectedReducers = {}) {
 }
 ```
 
-`runSaga` should ussually be `sagaMiddleware.run`. 
+`runSaga` should usually be `sagaMiddleware.run`. 
 
 ```js
   const runSaga = sagaMiddleware.run;
@@ -60,10 +60,22 @@ export default compose(
 
 ```
 
+Or, alternatively, using hooks:
+```js
+import { useInjectReducer, useInjectSaga } from "injectors";
+
+function BooksManager() {
+  useInjectReducer({ key: "books", reducer: booksReducer });
+  useInjectSaga({ key: "books", saga: booksSaga });
+
+  return null;
+}
+```
+
 ## Documentation
 See the [**API reference**](docs/api.md)
 
 ## Motivation
 There's a few reasons why you might not want to load all your reducers and sagas upfront:
-1. You don't need all the reducers and sagas for every page. This library let's you only load the reducers/sagas that are needed for the page being viewed. This speeds up the page load time because you can take advantage of [code-splitting](https://webpack.js.org/guides/code-splitting/).  This is also good for performance after the page has loaded, because less reducers and sagas are running. 
-2. You don't want to have to manage a big list of reducers/sagas. This library let's components inject their own reducers/sagas, so you don't need to worry about adding reducers/sagas to a global list.
+1. You don't need all the reducers and sagas for every page. This library lets you only load the reducers/sagas that are needed for the page being viewed. This speeds up the page load time because you can take advantage of [code-splitting](https://webpack.js.org/guides/code-splitting/).  This is also good for performance after the page has loaded, because fewer reducers and sagas are running. 
+2. You don't want to have to manage a big list of reducers/sagas. This library lets components inject their own reducers/sagas, so you don't need to worry about adding reducers/sagas to a global list.
