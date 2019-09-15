@@ -1,5 +1,5 @@
 # injectors
-Dynamically load [redux](https://redux.js.org/) reducers and [redux-saga](https://redux-saga.js.org/) sagas as needed, instead of loading all of them upfront. See [motivation](#Motivation). As used by react-boilerplate.
+Dynamically load [redux](https://redux.js.org/) reducers and [redux-saga](https://redux-saga.js.org/) sagas as needed, instead of loading them all upfront. This has some nice benefits, such as avoiding having to manage a big global list of reducers and sagas. It also allows more effective use of [code-splitting](https://webpack.js.org/guides/code-splitting/). See [motivation](#Motivation). As used by [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate).
 
 ## Getting Started
 ```bash
@@ -14,7 +14,7 @@ import { createInjectorsEnhancer } from "injectors";
 
 const store = createStore(
  createReducer(),
- undefined,
+ initialState,
  createInjectorsEnhancer({
    createReducer,
    runSaga,
@@ -60,7 +60,7 @@ export default compose(
 
 ```
 
-Or, alternatively, using hooks:
+Or, using hooks:
 ```js
 import { useInjectReducer, useInjectSaga } from "injectors";
 
