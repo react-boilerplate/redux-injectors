@@ -64,7 +64,7 @@ included in the project:
     with a clear title and description.
 
 **IMPORTANT**: By submitting a patch, you agree to allow the project
-owners to license your work under the terms of the [MIT License](https://github.com/react-boilerplate/injectors/blob/master/LICENSE.md).
+owners to license your work under the terms of the [MIT License](https://github.com/react-boilerplate/redux-injectors/blob/master/LICENSE.md).
 
 ## Tips
 - When changing the API, including the jsdoc comments, please remember to update the typings file: [index.d.ts](index.d.ts)

@@ -1,10 +1,10 @@
 {
-  "name": "react-redux-injectors",
-  "version": "0.1.0",
+  "name": "redux-injectors",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "index.d.ts",
-  "repository": "git@github.com:react-boilerplate/injectors.git",
+  "repository": "git@github.com:react-boilerplate/redux-injectors.git",
   "author": "react-boilerplate",
   "license": "MIT",
   "scripts": {

@@ -49,7 +49,7 @@ injectors to work properly
 
 ```javascript
 import { createStore } from "redux"
-import { createInjectorsEnhancer } from "injectors"
+import { createInjectorsEnhancer } from "redux-injectors"
 
 function createReducer(injectedReducers = {}) {
  const rootReducer = combineReducers({
