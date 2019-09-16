@@ -38,9 +38,9 @@ injectors to work properly
 
 #### Parameters
 
--   `options` **[Object][24]** 
-    -   `options.runSaga` **[function][25]** A function that runs a saga. Should usually be `sagaMiddleware.run`
-    -   `options.createReducer` **[function][25]** A function that should create and
+-   `params` **[Object][24]** 
+    -   `params.runSaga` **[function][25]** A function that runs a saga. Should usually be `sagaMiddleware.run`
+    -   `params.createReducer` **[function][25]** A function that should create and
         return the root reducer. It's passed the injected reducers as the first
         parameter. These should be added to the root reducer using `combineReducer`
         or a similar method.
@@ -62,12 +62,12 @@ function createReducer(injectedReducers = {}) {
 const runSaga = sagaMiddleware.run
 
 const store = createStore(
- createReducer(),
- undefined,
- createInjectorsEnhancer({
-   createReducer,
-   runSaga,
- })
+  createReducer(),
+  initialState,
+  createInjectorsEnhancer({
+    createReducer,
+    runSaga,
+  })
 )
 ```
 
@@ -83,17 +83,17 @@ component is instantiated
 
 #### Parameters
 
--   `options` **[Object][24]** 
-    -   `options.key` **[string][26]** The key to inject the reducer under
-    -   `options.reducer` **[function][25]** The reducer that will be injected
+-   `params` **[Object][24]** 
+    -   `params.key` **[string][26]** The key to inject the reducer under
+    -   `params.reducer` **[function][25]** The reducer that will be injected
 
 #### Examples
 
 ```javascript
 class BooksManager extends React.PureComponent {
- render() {
-   return null;
- }
+  render() {
+    return null;
+  }
 }
 
 export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
@@ -105,17 +105,17 @@ A react hook that dynamically injects a reducer when the hook is run
 
 #### Parameters
 
--   `options` **[Object][24]** 
-    -   `options.key` **[string][26]** The key to inject the reducer under
-    -   `options.reducer` **[function][25]** The reducer that will be injected
+-   `params` **[Object][24]** 
+    -   `params.key` **[string][26]** The key to inject the reducer under
+    -   `params.reducer` **[function][25]** The reducer that will be injected
 
 #### Examples
 
 ```javascript
 function BooksManager() {
- useInjectReducer({ key: "books", reducer: booksReducer })
+  useInjectReducer({ key: "books", reducer: booksReducer })
 
- return null;
+  return null;
 }
 ```
 
@@ -127,10 +127,10 @@ dictate how and when the saga should be injected and ejected
 
 #### Parameters
 
--   `options` **[Object][24]** 
-    -   `options.key` **[string][26]** The key to inject the saga under
-    -   `options.saga` **[function][25]** The saga that will be injected
-    -   `options.mode` **[string][26]?** The injection behaviour to use. The default is
+-   `params` **[Object][24]** 
+    -   `params.key` **[string][26]** The key to inject the saga under
+    -   `params.saga` **[function][25]** The saga that will be injected
+    -   `params.mode` **[string][26]?** The injection behaviour to use. The default is
         `SagaInjectionModes.DAEMON` which causes the saga to be started on component
         instantiation and never canceled or started again. @see
         [SagaInjectionModes][22] for the other possible modes.
@@ -153,10 +153,10 @@ A react hook that dynamically injects a saga when the hook is run
 
 #### Parameters
 
--   `options` **[Object][24]** 
-    -   `options.key` **[string][26]** The key to inject the saga under
-    -   `options.saga` **[function][25]** The saga that will be injected
-    -   `options.mode` **[string][26]?** The injection behaviour to use. The default is
+-   `params` **[Object][24]** 
+    -   `params.key` **[string][26]** The key to inject the saga under
+    -   `params.saga` **[function][25]** The saga that will be injected
+    -   `params.mode` **[string][26]?** The injection behaviour to use. The default is
         `SagaInjectionModes.DAEMON` which causes the saga to be started on component
         instantiation and never canceled or started again. @see
         [SagaInjectionModes][22] for the other possible modes.
@@ -165,9 +165,9 @@ A react hook that dynamically injects a saga when the hook is run
 
 ```javascript
 function BooksManager() {
- useInjectSaga({ key: "books", saga: booksSaga })
+  useInjectSaga({ key: "books", saga: booksSaga })
 
- return null;
+  return null;
 }
 ```
 
