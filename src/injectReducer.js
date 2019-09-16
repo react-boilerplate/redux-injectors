@@ -5,11 +5,24 @@ import { useStore, ReactReduxContext } from 'react-redux';
 import getInjectors from './reducerInjectors';
 
 /**
- * Dynamically injects a reducer
+ * A higher-order component that dynamically injects a reducer when the
+ * component is instantiated
  *
- * @param {string} key A key of the reducer
- * @param {function} reducer A reducer that will be injected
+ * @param {Object} params
+ * @param {string} params.key The key to inject the reducer under
+ * @param {function} params.reducer The reducer that will be injected
  *
+ * @example
+ *
+ * class BooksManager extends React.PureComponent {
+ *   render() {
+ *     return null;
+ *   }
+ * }
+ *
+ * export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
+ *
+ * @public
  */
 export default ({ key, reducer }) => WrappedComponent => {
   class ReducerInjector extends React.Component {
@@ -35,6 +48,23 @@ export default ({ key, reducer }) => WrappedComponent => {
   return hoistNonReactStatics(ReducerInjector, WrappedComponent);
 };
 
+/**
+ * A react hook that dynamically injects a reducer when the hook is run
+ *
+ * @param {Object} params
+ * @param {string} params.key The key to inject the reducer under
+ * @param {function} params.reducer The reducer that will be injected
+ *
+ * @example
+ *
+ * function BooksManager() {
+ *   useInjectReducer({ key: "books", reducer: booksReducer })
+ *
+ *   return null;
+ * }
+ *
+ * @public
+ */
 const useInjectReducer = ({ key, reducer }) => {
   const store = useStore();
   React.useEffect(() => {

@@ -1,15 +1,26 @@
 {
   "name": "react-redux-injectors",
   "version": "0.1.0",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "index.d.ts",
   "repository": "git@github.com:react-boilerplate/injectors.git",
   "author": "react-boilerplate",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --out-dir lib",
-    "test": "jest"
+    "build": "bili --format cjs --format esm",
+    "build:docs": "documentation build -f md -o docs/api.md --markdown-toc ./src/index.js --access=public --config documentation.yml",
+    "test": "jest",
+    "lint": "eslint ./src",
+    "prettify": "prettier --write",
+    "prepublishOnly": "npm run test && npm run build"
   },
+  "files": [
+    "dist",
+    "index.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@babel/cli": "7.5.5",
     "@babel/core": "7.5.5",
@@ -21,8 +32,22 @@
     "@babel/preset-react": "7.0.0",
     "@testing-library/react": "8.0.9",
     "babel-eslint": "10.0.3",
+    "bili": "4.8.1",
     "core-js": "3.2.1",
+    "documentation": "12.1.1",
+    "eslint": "6.2.2",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-config-prettier": "6.1.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-react": "7.14.3",
+    "eslint-plugin-react-hooks": "1.7.0",
+    "eslint-plugin-redux-saga": "1.1.0",
+    "husky": "3.0.4",
     "jest-cli": "24.9.0",
+    "lint-staged": "9.2.5",
+    "prettier": "1.18.2",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-redux": "7.1.1",
@@ -40,5 +65,16 @@
     "invariant": "^2.2.4",
     "lodash": "^4.17.15",
     "redux": "^4.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

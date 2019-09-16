@@ -3,30 +3,61 @@ import conformsTo from 'lodash/conformsTo';
 import isFunction from 'lodash/isFunction';
 
 /**
- * @description Creates a store enhancer that when applied will setup the injectors to work
- * 
- * @param options.runSaga A function that runs a saga. Should ussually be `sagaMiddleware.run`
- * @param options.createReducer A function that should create and return the root reducer. It's passed the injected reducers as the first parameter. These should be added to the root reducer using `combineReducer` or a similar method.
+ * Creates a store enhancer that when applied will setup the store to allow the
+ * injectors to work properly
+ *
+ * @param {Object} params
+ * @param {function} params.runSaga A function that runs a saga. Should usually be `sagaMiddleware.run`
+ * @param {function} params.createReducer A function that should create and
+ * return the root reducer. It's passed the injected reducers as the first
+ * parameter. These should be added to the root reducer using `combineReducer`
+ * or a similar method.
+ *
+ * @example
+ *
+ * import { createStore } from "redux"
+ * import { createInjectorsEnhancer } from "injectors"
+ *
+ * function createReducer(injectedReducers = {}) {
+ *  const rootReducer = combineReducers({
+ *    ...injectedReducers,
+ *    // other non-injected reducers can go here...
+ *  });
+ *
+ *  return rootReducer
+ * }
+ * const runSaga = sagaMiddleware.run
+ *
+ * const store = createStore(
+ *   createReducer(),
+ *   initialState,
+ *   createInjectorsEnhancer({
+ *     createReducer,
+ *     runSaga,
+ *   })
+ * )
+ *
+ * @public
  */
-export function createInjectorsEnhancer(options) {
+export function createInjectorsEnhancer(params) {
   invariant(
-    conformsTo(options, {
+    conformsTo(params, {
       runSaga: isFunction,
-      createReducer: isFunction
+      createReducer: isFunction,
     }),
-    '(injectors...) setupStoreForInjectors: options `runSaga` and ' +
+    '(injectors...) setupStoreForInjectors: params `runSaga` and ' +
       '`createReducer` are required.',
-  )
+  );
 
   return createStore => (...args) => {
-    const store = createStore(...args)
+    const store = createStore(...args);
 
     return {
       ...store,
-      createReducer: options.createReducer,
-      runSaga: options.runSaga,
+      createReducer: params.createReducer,
+      runSaga: params.runSaga,
       injectedReducers: {}, // Reducer registry
       injectedSagas: {}, // Saga registry
-    }
-  }
+    };
+  };
 }
