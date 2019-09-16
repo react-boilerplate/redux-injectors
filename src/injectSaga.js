@@ -9,10 +9,10 @@ import getInjectors from './sagaInjectors';
  * is instantiated. There are several possible "modes" / "behaviours" that
  * dictate how and when the saga should be injected and ejected
  *
- * @param {Object} options
- * @param {string} options.key The key to inject the saga under
- * @param {function} options.saga The saga that will be injected
- * @param {string} [options.mode] The injection behaviour to use. The default is
+ * @param {Object} params
+ * @param {string} params.key The key to inject the saga under
+ * @param {function} params.saga The saga that will be injected
+ * @param {string} [params.mode] The injection behaviour to use. The default is
  * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
  * instantiation and never canceled or started again. @see
  * {@link SagaInjectionModes} for the other possible modes.
@@ -63,10 +63,10 @@ export default ({ key, saga, mode }) => WrappedComponent => {
 /**
  * A react hook that dynamically injects a saga when the hook is run
  *
- * @param {Object} options
- * @param {string} options.key The key to inject the saga under
- * @param {function} options.saga The saga that will be injected
- * @param {string} [options.mode] The injection behaviour to use. The default is
+ * @param {Object} params
+ * @param {string} params.key The key to inject the saga under
+ * @param {function} params.saga The saga that will be injected
+ * @param {string} [params.mode] The injection behaviour to use. The default is
  * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
  * instantiation and never canceled or started again. @see
  * {@link SagaInjectionModes} for the other possible modes.
@@ -74,9 +74,9 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  * @example
  *
  * function BooksManager() {
- *  useInjectSaga({ key: "books", saga: booksSaga })
+ *   useInjectSaga({ key: "books", saga: booksSaga })
  *
- *  return null;
+ *   return null;
  * }
  *
  * @public

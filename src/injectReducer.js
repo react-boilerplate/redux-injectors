@@ -8,16 +8,16 @@ import getInjectors from './reducerInjectors';
  * A higher-order component that dynamically injects a reducer when the
  * component is instantiated
  *
- * @param {Object} options
- * @param {string} options.key The key to inject the reducer under
- * @param {function} options.reducer The reducer that will be injected
+ * @param {Object} params
+ * @param {string} params.key The key to inject the reducer under
+ * @param {function} params.reducer The reducer that will be injected
  *
  * @example
  *
  * class BooksManager extends React.PureComponent {
- *  render() {
- *    return null;
- *  }
+ *   render() {
+ *     return null;
+ *   }
  * }
  *
  * export default injectReducer({ key: "books", reducer: booksReducer })(BooksManager)
@@ -51,16 +51,16 @@ export default ({ key, reducer }) => WrappedComponent => {
 /**
  * A react hook that dynamically injects a reducer when the hook is run
  *
- * @param {Object} options
- * @param {string} options.key The key to inject the reducer under
- * @param {function} options.reducer The reducer that will be injected
+ * @param {Object} params
+ * @param {string} params.key The key to inject the reducer under
+ * @param {function} params.reducer The reducer that will be injected
  *
  * @example
  *
  * function BooksManager() {
- *  useInjectReducer({ key: "books", reducer: booksReducer })
+ *   useInjectReducer({ key: "books", reducer: booksReducer })
  *
- *  return null;
+ *   return null;
  * }
  *
  * @public

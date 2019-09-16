@@ -6,9 +6,9 @@ import isFunction from 'lodash/isFunction';
  * Creates a store enhancer that when applied will setup the store to allow the
  * injectors to work properly
  *
- * @param {Object} options
- * @param {function} options.runSaga A function that runs a saga. Should usually be `sagaMiddleware.run`
- * @param {function} options.createReducer A function that should create and
+ * @param {Object} params
+ * @param {function} params.runSaga A function that runs a saga. Should usually be `sagaMiddleware.run`
+ * @param {function} params.createReducer A function that should create and
  * return the root reducer. It's passed the injected reducers as the first
  * parameter. These should be added to the root reducer using `combineReducer`
  * or a similar method.
@@ -29,23 +29,23 @@ import isFunction from 'lodash/isFunction';
  * const runSaga = sagaMiddleware.run
  *
  * const store = createStore(
- *  createReducer(),
- *  undefined,
- *  createInjectorsEnhancer({
- *    createReducer,
- *    runSaga,
- *  })
+ *   createReducer(),
+ *   initialState,
+ *   createInjectorsEnhancer({
+ *     createReducer,
+ *     runSaga,
+ *   })
  * )
  *
  * @public
  */
-export function createInjectorsEnhancer(options) {
+export function createInjectorsEnhancer(params) {
   invariant(
-    conformsTo(options, {
+    conformsTo(params, {
       runSaga: isFunction,
       createReducer: isFunction,
     }),
-    '(injectors...) setupStoreForInjectors: options `runSaga` and ' +
+    '(injectors...) setupStoreForInjectors: params `runSaga` and ' +
       '`createReducer` are required.',
   );
 
@@ -54,8 +54,8 @@ export function createInjectorsEnhancer(options) {
 
     return {
       ...store,
-      createReducer: options.createReducer,
-      runSaga: options.runSaga,
+      createReducer: params.createReducer,
+      runSaga: params.runSaga,
       injectedReducers: {}, // Reducer registry
       injectedSagas: {}, // Saga registry
     };
