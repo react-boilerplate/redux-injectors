@@ -19,6 +19,6 @@ export default function checkStore(store) {
   };
   invariant(
     conformsTo(store, shape),
-    '(injectors...) checkStore: Expected a redux store that has been configured for use with injectors.',
+    '(redux-injectors...) checkStore: Expected a redux store that has been configured for use with redux-injectors.',
   );
 }

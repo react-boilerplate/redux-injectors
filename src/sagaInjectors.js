@@ -12,7 +12,7 @@ const allowedModes = [RESTART_ON_REMOUNT, DAEMON, ONCE_TILL_UNMOUNT];
 const checkKey = key =>
   invariant(
     isString(key) && !isEmpty(key),
-    '(injectors...) injectSaga: Expected `key` to be a non empty string',
+    '(redux-injectors...) injectSaga: Expected `key` to be a non empty string',
   );
 
 const checkDescriptor = descriptor => {
@@ -22,7 +22,7 @@ const checkDescriptor = descriptor => {
   };
   invariant(
     conformsTo(descriptor, shape),
-    '(injectors...) injectSaga: Expected a valid saga descriptor',
+    '(redux-injectors...) injectSaga: Expected a valid saga descriptor',
   );
 };
 

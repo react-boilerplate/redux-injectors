@@ -16,7 +16,7 @@ import isFunction from 'lodash/isFunction';
  * @example
  *
  * import { createStore } from "redux"
- * import { createInjectorsEnhancer } from "injectors"
+ * import { createInjectorsEnhancer } from "redux-injectors"
  *
  * function createReducer(injectedReducers = {}) {
  *  const rootReducer = combineReducers({
@@ -45,7 +45,7 @@ export function createInjectorsEnhancer(params) {
       runSaga: isFunction,
       createReducer: isFunction,
     }),
-    '(injectors...) setupStoreForInjectors: params `runSaga` and ' +
+    '(redux-injectors...) createInjectorsEnhancer: params `runSaga` and ' +
       '`createReducer` are required.',
   );
 

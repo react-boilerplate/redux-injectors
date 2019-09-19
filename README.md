@@ -1,16 +1,16 @@
-# injectors
+# redux-injectors
 Dynamically load [redux](https://redux.js.org/) reducers and [redux-saga](https://redux-saga.js.org/) sagas as needed, instead of loading them all upfront. This has some nice benefits, such as avoiding having to manage a big global list of reducers and sagas. It also allows more effective use of [code-splitting](https://webpack.js.org/guides/code-splitting/). See [motivation](#Motivation). As used by [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate).
 
 ## Getting Started
 ```bash
-npm install injectors # (or yarn add injectors)
+npm install redux-injectors # (or yarn add redux-injectors)
 ```
 
 ### Setting up the redux store
 The redux store needs to be configured to allow this library to work. The library exports a store enhancer that can be passed to the `createStore` function.
 ```js
 import { createStore } from "redux";
-import { createInjectorsEnhancer } from "injectors";
+import { createInjectorsEnhancer } from "redux-injectors";
 
 const store = createStore(
  createReducer(),
@@ -45,7 +45,7 @@ function createReducer(injectedReducers = {}) {
 After setting up the store, you will be able to start injecting reducers and sagas.
 ```js
 import { compose } from "redux";
-import { injectReducer, injectSaga } from "injectors";
+import { injectReducer, injectSaga } from "redux-injectors";
 
 class BooksManager extends React.PureComponent {
  render() {
@@ -62,7 +62,7 @@ export default compose(
 
 Or, using hooks:
 ```js
-import { useInjectReducer, useInjectSaga } from "injectors";
+import { useInjectReducer, useInjectSaga } from "redux-injectors";
 
 export default function BooksManager() {
   useInjectReducer({ key: "books", reducer: booksReducer });
