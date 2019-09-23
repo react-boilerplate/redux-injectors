@@ -1,0 +1,14 @@
+toc:
+  - name: Setup
+    children:
+      - createInjectorsEnhancer      
+  - name: Injectors
+    children:
+      - injectReducer
+      - useInjectReducer
+      - injectSaga
+      - useInjectSaga
+  - name: Misc
+    children:
+      - forceReducerReload
+      - SagaInjectionModes

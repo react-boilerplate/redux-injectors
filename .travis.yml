@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - 'node'
+  - 'lts/*'
+
+script:
+  - npm test -- --maxWorkers=4
+  - npm run build
+  - npm run lint
+
+cache:
+  directories:
+    - node_modules
