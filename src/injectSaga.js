@@ -83,14 +83,20 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  */
 const useInjectSaga = ({ key, saga, mode }) => {
   const store = useStore();
-  React.useEffect(() => {
-    const injectors = getInjectors(store);
-    injectors.injectSaga(key, { saga, mode });
 
-    return () => {
-      injectors.ejectSaga(key);
-    };
-  }, []);
+  const isInjected = React.useRef(false);
+
+  if (!isInjected.current) {
+    getInjectors(store).injectSaga(key, { saga, mode });
+    isInjected.current = true;
+  }
+
+  React.useEffect(
+    () => () => {
+      getInjectors(store).ejectSaga(key);
+    },
+    [],
+  );
 };
 
 export { useInjectSaga };
