@@ -1,6 +1,6 @@
 {
   "name": "redux-injectors",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "index.d.ts",
@@ -13,7 +13,7 @@
     "test": "jest",
     "lint": "eslint ./src",
     "prettify": "prettier --write",
-    "prepublishOnly": "npm run test && npm run build"
+    "prepublishOnly": "./scripts/check-on-master.sh && npm run test && npm run build"
   },
   "files": [
     "dist",
