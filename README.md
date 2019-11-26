@@ -1,4 +1,6 @@
-# redux-injectors
+# <img src="./img/logo.svg" alt="alt text" width="400"></img>
+<img src="https://travis-ci.org/react-boilerplate/redux-injectors.svg?branch=master" alt="build status"></img>
+
 Dynamically load [redux](https://redux.js.org/) reducers and [redux-saga](https://redux-saga.js.org/) sagas as needed, instead of loading them all upfront. This has some nice benefits, such as avoiding having to manage a big global list of reducers and sagas. It also allows more effective use of [code-splitting](https://webpack.js.org/guides/code-splitting/). See [motivation](#Motivation). As used by [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate).
 
 ## Getting Started
