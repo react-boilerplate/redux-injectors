@@ -13,7 +13,7 @@ import { Saga, Task } from "redux-saga";
  *
  * @public
  */
-export function forceReducerReload(store: {});
+export function forceReducerReload(store: {}): void;
 
 /**
  * Creates a store enhancer that when applied will setup the store to allow the
