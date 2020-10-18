@@ -79,24 +79,23 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  *   return null;
  * }
  *
+ * @returns {boolean} flag indicating whether or not the saga has finished injecting
  * @public
  */
 const useInjectSaga = ({ key, saga, mode }) => {
   const store = useStore();
+  const [isInjected, setIsInjected] = React.useState(false);
 
-  const isInjected = React.useRef(false);
-
-  if (!isInjected.current) {
+  React.useLayoutEffect(() => {
     getInjectors(store).injectSaga(key, { saga, mode });
-    isInjected.current = true;
-  }
+    setIsInjected(true);
 
-  React.useEffect(
-    () => () => {
+    return () => {
       getInjectors(store).ejectSaga(key);
-    },
-    [],
-  );
+    };
+  }, []);
+
+  return isInjected;
 };
 
 export { useInjectSaga };

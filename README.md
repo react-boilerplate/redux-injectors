@@ -43,6 +43,33 @@ function createReducer(injectedReducers = {}) {
   const runSaga = sagaMiddleware.run;
 ```
 
+### Redux DevTools
+If you're using redux devtools, it's **important to set `shouldHotReload` to false**.  This is because otherwise, redux devtools will re-dispatch previous actions when reducers are injected, causing unexpected behavior.
+
+If using redux-toolkit:
+```js
+  const store = configureStore({
+    devTools: {
+      shouldHotReload: false
+    }
+  })
+```
+
+If not using redux-toolkit:
+```js
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const composeEnhancers = composeWithDevTools({
+  shouldHotReload: false
+});
+
+const store = createStore(reducer, composeEnhancers(
+  ...
+));
+```
+
+Unfortunately this causes a separate issue where the action history is cleared when a reducer is injected, **but it's still strongly recommended to set `shouldHotReload` to false**.  There's an [open issue in the redux-devtools repo about this](https://github.com/reduxjs/redux-devtools/issues/378).
+
 ### Injecting your first reducer and saga
 After setting up the store, you will be able to start injecting reducers and sagas.
 ```js
@@ -73,6 +100,28 @@ export default function BooksManager() {
   return null;
 }
 ```
+
+**Note:** while the above usage should work in most cases, you might find your reducers/sagas aren't being injected in time to receive an action.  This can happen, for example, if you dispatch an action inside a `useLayoutEffect` instead of a `useEffect`.  In that case, `useInjectReducer` and `useInjectSaga` return boolean flags that are `true` once the reducers/sagas have finished injecting.  You can check these before rendering children that depend on these reducers/sagas being injected.
+
+```js
+import { useInjectReducer, useInjectSaga } from "redux-injectors";
+
+export default function BooksManager(props) {
+  const reducerInjected = useInjectReducer({ key: "books", reducer: booksReducer });
+  const sagaInjected = useInjectSaga({ key: "books", saga: booksSaga });
+
+  if (!reducerInjected || !sagaInjected) {
+    return null;
+  }
+
+  return (
+    <>
+      {props.children}
+    </>
+  );
+}
+```
+
 
 ## Documentation
 See the [**API reference**](docs/api.md)

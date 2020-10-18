@@ -125,6 +125,7 @@ export function injectSaga(options: { key: string, saga: Saga, mode?: SagaInject
  */
 
 export function injectReducer(options: { key: string, reducer: Reducer }): <T extends ComponentType>(Component: T) => T;
+
 /**
  * A react hook that dynamically injects a saga when the hook is run
  *
@@ -144,9 +145,10 @@ export function injectReducer(options: { key: string, reducer: Reducer }): <T ex
  *  return null;
  * }
  * 
+ * @returns {boolean} flag indicating whether or not the saga has finished injecting
  * @public
  */
-export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInjectionModes }): void;
+export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInjectionModes }): boolean;
 
 /**
  * A react hook that dynamically injects a reducer when the hook is run
@@ -163,6 +165,7 @@ export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInj
  *  return null;
  * }
  * 
+ * @returns {boolean} flag indicating whether or not the reducer has finished injecting
  * @public
  */
-export function useInjectReducer(options: { key: string, reducer: Reducer }): void;
+export function useInjectReducer(options: { key: string, reducer: Reducer }): boolean;

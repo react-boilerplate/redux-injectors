@@ -119,6 +119,8 @@ function BooksManager() {
 }
 ```
 
+Returns **[boolean][27]** flag indicating whether or not the reducer has finished injecting
+
 ### injectSaga
 
 A higher-order component that dynamically injects a saga when the component
@@ -170,6 +172,8 @@ function BooksManager() {
   return null;
 }
 ```
+
+Returns **[boolean][27]** flag indicating whether or not the saga has finished injecting
 
 ## Misc
 
@@ -255,3 +259,5 @@ An enum of all the possible saga injection behaviours
 [25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
 [26]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[27]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
