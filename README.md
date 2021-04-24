@@ -124,7 +124,8 @@ export default function BooksManager(props) {
 
 
 ## Documentation
-See the [**API reference**](docs/api.md)
+See the [**API reference**](docs/api.md)  
+Or the [**example**](example)
 
 ## Motivation
 There's a few reasons why you might not want to load all your reducers and sagas upfront:

@@ -1,7 +1,7 @@
 import React from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { useStore, ReactReduxContext } from 'react-redux';
-
+import { SagaInjectionModes } from './constants';
 import getInjectors from './sagaInjectors';
 
 /**
@@ -66,10 +66,6 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  * @param {Object} params
  * @param {string} params.key The key to inject the saga under
  * @param {function} params.saga The saga that will be injected
- * @param {string} [params.mode] The injection behaviour to use. The default is
- * `SagaInjectionModes.DAEMON` which causes the saga to be started on component
- * instantiation and never canceled or started again. @see
- * {@link SagaInjectionModes} for the other possible modes.
  *
  * @example
  *
@@ -82,12 +78,12 @@ export default ({ key, saga, mode }) => WrappedComponent => {
  * @returns {boolean} flag indicating whether or not the saga has finished injecting
  * @public
  */
-const useInjectSaga = ({ key, saga, mode }) => {
+const useInjectSaga = ({ key, saga }) => {
   const store = useStore();
   const [isInjected, setIsInjected] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    getInjectors(store).injectSaga(key, { saga, mode });
+    getInjectors(store).injectSaga(key, { saga, mode: SagaInjectionModes.DAEMON });
     setIsInjected(true);
 
     return () => {

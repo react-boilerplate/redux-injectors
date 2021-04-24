@@ -7,6 +7,7 @@
   "repository": "git@github.com:react-boilerplate/redux-injectors.git",
   "author": "react-boilerplate",
   "license": "MIT",
+  "sideEffects": false,
   "scripts": {
     "build": "bili --format cjs --format esm",
     "build:docs": "documentation build -f md -o docs/api.md --markdown-toc ./src/index.js --access=public --config documentation.yml",
