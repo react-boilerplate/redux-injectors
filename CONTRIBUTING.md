@@ -8,9 +8,6 @@ npm link
 cd example
 npm install
 npm link redux-injectors
-
-# The following two commands are required so react 
-# doesn't complain about multiple copies being loaded
 rm -rf node_modules/react
 rm -rf node_modules/react-dom
 rm -rf node_modules/react-redux
