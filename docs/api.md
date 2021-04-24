@@ -6,25 +6,29 @@
     -   [createInjectorsEnhancer][2]
         -   [Parameters][3]
         -   [Examples][4]
--   [Injectors][5]
-    -   [injectReducer][6]
+-   [Managers][5]
+    -   [createManager][6]
         -   [Parameters][7]
         -   [Examples][8]
-    -   [useInjectReducer][9]
-        -   [Parameters][10]
-        -   [Examples][11]
-    -   [injectSaga][12]
-        -   [Parameters][13]
-        -   [Examples][14]
-    -   [useInjectSaga][15]
-        -   [Parameters][16]
-        -   [Examples][17]
--   [Misc][18]
-    -   [forceReducerReload][19]
+-   [Injectors][9]
+    -   [injectReducer][10]
+        -   [Parameters][11]
+        -   [Examples][12]
+    -   [useInjectReducer][13]
+        -   [Parameters][14]
+        -   [Examples][15]
+    -   [injectSaga][16]
+        -   [Parameters][17]
+        -   [Examples][18]
+    -   [useInjectSaga][19]
         -   [Parameters][20]
         -   [Examples][21]
-    -   [SagaInjectionModes][22]
-        -   [Properties][23]
+-   [Misc][22]
+    -   [forceReducerReload][23]
+        -   [Parameters][24]
+        -   [Examples][25]
+    -   [SagaInjectionModes][26]
+        -   [Properties][27]
 
 ## Setup
 
@@ -38,9 +42,9 @@ injectors to work properly
 
 #### Parameters
 
--   `params` **[Object][24]** 
-    -   `params.runSaga` **[function][25]** A function that runs a saga. Should usually be `sagaMiddleware.run`
-    -   `params.createReducer` **[function][25]** A function that should create and
+-   `params` **[Object][28]** 
+    -   `params.runSaga` **[function][29]** A function that runs a saga. Should usually be `sagaMiddleware.run`
+    -   `params.createReducer` **[function][29]** A function that should create and
         return the root reducer. It's passed the injected reducers as the first
         parameter. These should be added to the root reducer using `combineReducer`
         or a similar method.
@@ -71,6 +75,33 @@ const store = createStore(
 )
 ```
 
+## Managers
+
+
+
+
+### createManager
+
+Creates a "manager" component that will inject the provided reducer and saga
+when mounted.  It only renders its children after both the reducer and saga
+have been injected.  This is the recommended way to use redux-injectors.
+
+#### Parameters
+
+-   `options` **[Object][28]** 
+    -   `options.name` **[function][29]** The name to give the manager that shows up in the react devtools
+    -   `options.key` **[string][30]** The key to inject the reducer under
+    -   `options.reducer` **[function][29]** The reducer that will be injected
+    -   `options.saga` **[function][29]** The saga that will be injected
+
+#### Examples
+
+```javascript
+const BooksManager = createManager({ name: "BooksManager", key: "books", reducer: booksReducer, saga: booksSaga })
+```
+
+Returns **ComponentType&lt;{children: ReactNode}>** The manager
+
 ## Injectors
 
 
@@ -83,9 +114,9 @@ component is instantiated
 
 #### Parameters
 
--   `params` **[Object][24]** 
-    -   `params.key` **[string][26]** The key to inject the reducer under
-    -   `params.reducer` **[function][25]** The reducer that will be injected
+-   `params` **[Object][28]** 
+    -   `params.key` **[string][30]** The key to inject the reducer under
+    -   `params.reducer` **[function][29]** The reducer that will be injected
 
 #### Examples
 
@@ -105,9 +136,9 @@ A react hook that dynamically injects a reducer when the hook is run
 
 #### Parameters
 
--   `params` **[Object][24]** 
-    -   `params.key` **[string][26]** The key to inject the reducer under
-    -   `params.reducer` **[function][25]** The reducer that will be injected
+-   `params` **[Object][28]** 
+    -   `params.key` **[string][30]** The key to inject the reducer under
+    -   `params.reducer` **[function][29]** The reducer that will be injected
 
 #### Examples
 
@@ -119,7 +150,7 @@ function BooksManager() {
 }
 ```
 
-Returns **[boolean][27]** flag indicating whether or not the reducer has finished injecting
+Returns **[boolean][31]** flag indicating whether or not the reducer has finished injecting
 
 ### injectSaga
 
@@ -129,13 +160,13 @@ dictate how and when the saga should be injected and ejected
 
 #### Parameters
 
--   `params` **[Object][24]** 
-    -   `params.key` **[string][26]** The key to inject the saga under
-    -   `params.saga` **[function][25]** The saga that will be injected
-    -   `params.mode` **[string][26]?** The injection behaviour to use. The default is
+-   `params` **[Object][28]** 
+    -   `params.key` **[string][30]** The key to inject the saga under
+    -   `params.saga` **[function][29]** The saga that will be injected
+    -   `params.mode` **[string][30]?** The injection behaviour to use. The default is
         `SagaInjectionModes.DAEMON` which causes the saga to be started on component
         instantiation and never canceled or started again. @see
-        [SagaInjectionModes][22] for the other possible modes.
+        [SagaInjectionModes][26] for the other possible modes.
 
 #### Examples
 
@@ -155,13 +186,9 @@ A react hook that dynamically injects a saga when the hook is run
 
 #### Parameters
 
--   `params` **[Object][24]** 
-    -   `params.key` **[string][26]** The key to inject the saga under
-    -   `params.saga` **[function][25]** The saga that will be injected
-    -   `params.mode` **[string][26]?** The injection behaviour to use. The default is
-        `SagaInjectionModes.DAEMON` which causes the saga to be started on component
-        instantiation and never canceled or started again. @see
-        [SagaInjectionModes][22] for the other possible modes.
+-   `params` **[Object][28]** 
+    -   `params.key` **[string][30]** The key to inject the saga under
+    -   `params.saga` **[function][29]** The saga that will be injected
 
 #### Examples
 
@@ -173,7 +200,7 @@ function BooksManager() {
 }
 ```
 
-Returns **[boolean][27]** flag indicating whether or not the saga has finished injecting
+Returns **[boolean][31]** flag indicating whether or not the saga has finished injecting
 
 ## Misc
 
@@ -202,11 +229,11 @@ An enum of all the possible saga injection behaviours
 
 #### Properties
 
--   `RESTART_ON_REMOUNT` **[String][26]** The saga will be started on component instantiation and cancelled with
+-   `RESTART_ON_REMOUNT` **[String][30]** The saga will be started on component instantiation and cancelled with
     `task.cancel()` on component unmount for improved performance.
--   `DAEMON` **[String][26]** Causes the saga to be started on component instantiation and never canceled
+-   `DAEMON` **[String][30]** Causes the saga to be started on component instantiation and never canceled
     or started again.
--   `ONCE_TILL_UNMOUNT` **[String][26]** Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
+-   `ONCE_TILL_UNMOUNT` **[String][30]** Behaves like 'RESTART_ON_REMOUNT' but never runs it again.
 
 [1]: #setup
 
@@ -216,48 +243,56 @@ An enum of all the possible saga injection behaviours
 
 [4]: #examples
 
-[5]: #injectors
+[5]: #managers
 
-[6]: #injectreducer
+[6]: #createmanager
 
 [7]: #parameters-1
 
 [8]: #examples-1
 
-[9]: #useinjectreducer
+[9]: #injectors
 
-[10]: #parameters-2
+[10]: #injectreducer
 
-[11]: #examples-2
+[11]: #parameters-2
 
-[12]: #injectsaga
+[12]: #examples-2
 
-[13]: #parameters-3
+[13]: #useinjectreducer
 
-[14]: #examples-3
+[14]: #parameters-3
 
-[15]: #useinjectsaga
+[15]: #examples-3
 
-[16]: #parameters-4
+[16]: #injectsaga
 
-[17]: #examples-4
+[17]: #parameters-4
 
-[18]: #misc
+[18]: #examples-4
 
-[19]: #forcereducerreload
+[19]: #useinjectsaga
 
 [20]: #parameters-5
 
 [21]: #examples-5
 
-[22]: #sagainjectionmodes
+[22]: #misc
 
-[23]: #properties
+[23]: #forcereducerreload
 
-[24]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[24]: #parameters-6
 
-[25]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[25]: #examples-6
 
-[26]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[26]: #sagainjectionmodes
 
-[27]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[27]: #properties
+
+[28]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[29]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+
+[30]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[31]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean

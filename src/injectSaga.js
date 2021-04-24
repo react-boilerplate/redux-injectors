@@ -83,7 +83,10 @@ const useInjectSaga = ({ key, saga }) => {
   const [isInjected, setIsInjected] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    getInjectors(store).injectSaga(key, { saga, mode: SagaInjectionModes.DAEMON });
+    getInjectors(store).injectSaga(key, {
+      saga,
+      mode: SagaInjectionModes.DAEMON,
+    });
     setIsInjected(true);
 
     return () => {
