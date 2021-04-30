@@ -10,7 +10,13 @@ import getInjectors, {
   injectSagaFactory,
   ejectSagaFactory,
 } from '../sagaInjectors';
-import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from '../constants';
+import {
+  COUNTER,
+  DAEMON,
+  ONCE_TILL_UNMOUNT,
+  RESTART_ON_REMOUNT,
+  COUNTER_PROP,
+} from '../constants';
 import { createInjectorsEnhancer } from '../createInjectorsEnhancer';
 
 function configureStore() {
@@ -174,6 +180,9 @@ describe('injectors', () => {
       expect(() =>
         injectSaga('test', { saga: testSaga, mode: ONCE_TILL_UNMOUNT }),
       ).not.toThrow();
+      expect(() =>
+        injectSaga('test', { saga: testSaga, mode: COUNTER }),
+      ).not.toThrow();
     });
 
     it('should not start daemon and once-till-unmount sagas if were started before', () => {
@@ -183,8 +192,11 @@ describe('injectors', () => {
       injectSaga('test1', { saga: testSaga, mode: DAEMON });
       injectSaga('test2', { saga: testSaga, mode: ONCE_TILL_UNMOUNT });
       injectSaga('test2', { saga: testSaga, mode: ONCE_TILL_UNMOUNT });
+      injectSaga('test3', { saga: testSaga, mode: COUNTER });
+      injectSaga('test3', { saga: testSaga, mode: COUNTER });
+      injectSaga('test3', { saga: testSaga, mode: COUNTER });
 
-      expect(store.runSaga).toHaveBeenCalledTimes(2);
+      expect(store.runSaga).toHaveBeenCalledTimes(3);
     });
 
     it('should start any saga that was not started before', () => {
@@ -234,6 +246,58 @@ describe('injectors', () => {
     it('should save an entire descriptor in the saga registry', () => {
       injectSaga('test', { saga: testSaga, foo: 'bar' });
       expect(store.injectedSagas.test.foo).toBe('bar');
+    });
+
+    it('should have correctly counter value in injectedSagas for COUNTER mode', () => {
+      function* testSaga1() {
+        yield put({ type: 'TEST', payload: 'yup' });
+      }
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(1);
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(2);
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      ejectSaga('test');
+      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(2);
+
+      ejectSaga('test');
+      ejectSaga('test');
+      expect(store.injectedSagas.test).toBe(undefined);
+    });
+
+    it('should handle injection after ejecting all sagas', () => {
+      function* testSaga1() {
+        yield put({ type: 'TEST', payload: 'yup' });
+      }
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      ejectSaga('test');
+      ejectSaga('test');
+      expect(store.injectedSagas.test).toBe(undefined);
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(1);
+    });
+
+    it('should not behave differently in production for COUNTER mode', () => {
+      process.env.NODE_ENV = 'production';
+      function* testSaga1() {
+        yield put({ type: 'TEST', payload: 'yup' });
+      }
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      ejectSaga('test');
+      ejectSaga('test');
+      expect(store.injectedSagas.test).toBe('done');
+
+      injectSaga('test', { saga: testSaga1, mode: COUNTER });
+      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(1);
+      process.env.NODE_ENV = originalNodeEnv;
     });
   });
 });
