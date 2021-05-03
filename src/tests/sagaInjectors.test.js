@@ -15,7 +15,6 @@ import {
   DAEMON,
   ONCE_TILL_UNMOUNT,
   RESTART_ON_REMOUNT,
-  COUNTER_PROP,
 } from '../constants';
 import { createInjectorsEnhancer } from '../createInjectorsEnhancer';
 
@@ -254,18 +253,18 @@ describe('injectors', () => {
       }
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
-      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(1);
+      expect(store.injectedSagas.test.count).toBe(1);
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
-      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(2);
+      expect(store.injectedSagas.test.count).toBe(2);
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
       ejectSaga('test');
-      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(2);
+      expect(store.injectedSagas.test.count).toBe(2);
 
       ejectSaga('test');
       ejectSaga('test');
-      expect(store.injectedSagas.test).toBe(undefined);
+      expect(store.injectedSagas.test.count).toBe(0);
     });
 
     it('should handle injection after ejecting all sagas', () => {
@@ -277,10 +276,13 @@ describe('injectors', () => {
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
       ejectSaga('test');
       ejectSaga('test');
-      expect(store.injectedSagas.test).toBe(undefined);
+      expect(store.injectedSagas.test.count).toBe(0);
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
-      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(1);
+      expect(store.injectedSagas.test.count).toBe(1);
+
+      ejectSaga('test');
+      expect(store.injectedSagas.test.count).toBe(0);
     });
 
     it('should not behave differently in production for COUNTER mode', () => {
@@ -296,7 +298,10 @@ describe('injectors', () => {
       expect(store.injectedSagas.test).toBe('done');
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
-      expect(store.injectedSagas.test[COUNTER_PROP]).toBe(1);
+      expect(store.injectedSagas.test.count).toBe(1);
+
+      ejectSaga('test');
+      expect(store.injectedSagas.test).toBe('done');
       process.env.NODE_ENV = originalNodeEnv;
     });
   });
