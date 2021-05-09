@@ -132,7 +132,7 @@ describe('useInjectSaga hook', () => {
     expect(injectors.injectSaga).toHaveBeenCalledTimes(1);
     expect(injectors.injectSaga).toHaveBeenCalledWith('test', {
       saga: testSaga,
-      mode: '@@saga-injector/daemon',
+      mode: '@@saga-injector/counter',
     });
   });
 
