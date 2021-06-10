@@ -97,22 +97,23 @@ export function ejectSagaFactory(store, isValid) {
 
     if (Reflect.has(store.injectedSagas, key)) {
       const descriptor = store.injectedSagas[key];
+      if (!descriptor.mode) {
+        return;
+      }
 
-      if (descriptor.mode) {
-        if (descriptor.mode === COUNTER) {
-          descriptor.count -= 1;
+      if (descriptor.mode === COUNTER) {
+        descriptor.count -= 1;
 
-          // don't cancel task if still not 0
-          if (descriptor.count > 0) return;
-        }
+        if (descriptor.count > 0) return;
 
-        if (descriptor.mode !== DAEMON) {
-          descriptor.task.cancel();
-          // Clean up in production; in development we need `descriptor.saga` for hot reloading
-          if (process.env.NODE_ENV === 'production') {
-            // Need some value to be able to detect `ONCE_TILL_UNMOUNT` sagas in `injectSaga`
-            store.injectedSagas[key] = 'done'; // eslint-disable-line no-param-reassign
-          }
+        descriptor.task.cancel();
+        delete store.injectedSagas[key];
+      } else if (descriptor.mode !== DAEMON) {
+        descriptor.task.cancel();
+        // Clean up in production; in development we need `descriptor.saga` for hot reloading
+        if (process.env.NODE_ENV === 'production') {
+          // Need some value to be able to detect `ONCE_TILL_UNMOUNT` sagas in `injectSaga`
+          store.injectedSagas[key] = 'done'; // eslint-disable-line no-param-reassign
         }
       }
     }

@@ -264,7 +264,7 @@ describe('injectors', () => {
 
       ejectSaga('test');
       ejectSaga('test');
-      expect(store.injectedSagas.test.count).toBe(0);
+      expect(store.injectedSagas.test).toBeFalsy();
     });
 
     it('should handle injection after ejecting all sagas', () => {
@@ -276,13 +276,13 @@ describe('injectors', () => {
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
       ejectSaga('test');
       ejectSaga('test');
-      expect(store.injectedSagas.test.count).toBe(0);
+      expect(store.injectedSagas.test).toBeFalsy();
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
       expect(store.injectedSagas.test.count).toBe(1);
 
       ejectSaga('test');
-      expect(store.injectedSagas.test.count).toBe(0);
+      expect(store.injectedSagas.test).toBeFalsy();
     });
 
     it('should not behave differently in production for COUNTER mode', () => {
@@ -295,13 +295,13 @@ describe('injectors', () => {
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
       ejectSaga('test');
       ejectSaga('test');
-      expect(store.injectedSagas.test).toBe('done');
+      expect(store.injectedSagas.test).toBeFalsy();
 
       injectSaga('test', { saga: testSaga1, mode: COUNTER });
       expect(store.injectedSagas.test.count).toBe(1);
 
       ejectSaga('test');
-      expect(store.injectedSagas.test).toBe('done');
+      expect(store.injectedSagas.test).toBeFalsy();
       process.env.NODE_ENV = originalNodeEnv;
     });
   });

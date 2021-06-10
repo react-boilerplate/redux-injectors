@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { ComponentType, ReactNode } from "react";
 import { Reducer, StoreEnhancer } from "redux";
 import { Saga, Task } from "redux-saga";
 
@@ -129,6 +129,7 @@ export function injectSaga(options: { key: string, saga: Saga, mode?: SagaInject
  */
 
 export function injectReducer(options: { key: string, reducer: Reducer }): <T extends ComponentType>(Component: T) => T;
+
 /**
  * A react hook that dynamically injects a saga when the hook is run
  *
@@ -148,9 +149,10 @@ export function injectReducer(options: { key: string, reducer: Reducer }): <T ex
  *  return null;
  * }
  * 
+ * @returns {boolean} flag indicating whether or not the saga has finished injecting
  * @public
  */
-export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInjectionModes }): void;
+export function useInjectSaga(options: { key: string, saga: Saga }): boolean;
 
 /**
  * A react hook that dynamically injects a reducer when the hook is run
@@ -167,6 +169,27 @@ export function useInjectSaga(options: { key: string, saga: Saga, mode?: SagaInj
  *  return null;
  * }
  * 
+ * @returns {boolean} flag indicating whether or not the reducer has finished injecting
  * @public
  */
-export function useInjectReducer(options: { key: string, reducer: Reducer }): void;
+export function useInjectReducer(options: { key: string, reducer: Reducer }): boolean;
+
+/**
+ * Creates a "manager" component that will inject the provided reducer and saga
+ * when mounted.  It only renders its children after both the reducer and saga
+ * have been injected.  This is the recommended way to use redux-injectors.
+ *
+ * @param {Object} options
+ * @param {function} options.name The name to give the manager that shows up in the react devtools
+ * @param {string} options.key The key to inject the reducer under
+ * @param {function} options.reducer The reducer that will be injected
+ * @param {function} options.saga The saga that will be injected
+ * 
+ * @example
+ * 
+ * const BooksManager = createManager({ name: "BooksManager", key: "books", reducer: booksReducer, saga: booksSaga })
+ * 
+ * @returns {ComponentType<{ children: ReactNode }>} The manager
+ * @public
+ */
+export function createManager(options: { name: string, key: string, saga: Saga, reducer: Reducer }): ComponentType<{ children: ReactNode }>;
