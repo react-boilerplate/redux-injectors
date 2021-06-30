@@ -1,5 +1,20 @@
 # Contributing
 
+## Local Development
+You can use the examples folder for local development.  To do so, run the following:
+```bash
+npm install
+npm link
+cd example
+npm install
+npm link redux-injectors
+rm -rf node_modules/react
+rm -rf node_modules/react-dom
+rm -rf node_modules/react-redux
+
+npm start
+```
+
 ## Pull requests
 
 Good pull requests - patches, improvements, new features - are a fantastic
@@ -26,11 +41,11 @@ included in the project:
 
     ```bash
     # Clone your fork of the repo into the current directory
-    git clone https://github.com/<your-username>/react-boilerplate.git
+    git clone https://github.com/<your-username>/redux-injectors.git
     # Navigate to the newly cloned directory
-    cd react-boilerplate
+    cd redux-injectors
     # Assign the original repo to a remote called "upstream"
-    git remote add upstream https://github.com/react-boilerplate/react-boilerplate.git
+    git remote add upstream https://github.com/react-boilerplate/redux-injectors.git
     ```
 
 2.  If you cloned a while ago, get the latest changes from upstream:

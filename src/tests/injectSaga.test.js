@@ -115,7 +115,6 @@ describe('useInjectSaga hook', () => {
       useInjectSaga({
         key: 'test',
         saga: testSaga,
-        mode: 'testMode',
       });
       return null;
     };
@@ -133,7 +132,7 @@ describe('useInjectSaga hook', () => {
     expect(injectors.injectSaga).toHaveBeenCalledTimes(1);
     expect(injectors.injectSaga).toHaveBeenCalledWith('test', {
       saga: testSaga,
-      mode: 'testMode',
+      mode: '@@saga-injector/counter',
     });
   });
 

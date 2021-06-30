@@ -63,17 +63,19 @@ export default ({ key, reducer }) => WrappedComponent => {
  *   return null;
  * }
  *
+ * @returns {boolean} flag indicating whether or not the reducer has finished injecting
  * @public
  */
 const useInjectReducer = ({ key, reducer }) => {
   const store = useStore();
+  const [isInjected, setIsInjected] = React.useState(false);
 
-  const isInjected = React.useRef(false);
-
-  if (!isInjected.current) {
+  React.useLayoutEffect(() => {
     getInjectors(store).injectReducer(key, reducer);
-    isInjected.current = true;
-  }
+    setIsInjected(true);
+  }, []);
+
+  return isInjected;
 };
 
 export { useInjectReducer };

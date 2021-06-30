@@ -1,7 +1,10 @@
 toc:
   - name: Setup
     children:
-      - createInjectorsEnhancer      
+      - createInjectorsEnhancer 
+  - name: Managers
+    children:
+      - createManager     
   - name: Injectors
     children:
       - injectReducer
