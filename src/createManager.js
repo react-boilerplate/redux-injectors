@@ -7,10 +7,10 @@ import { useInjectSaga } from './injectSaga';
  * have been injected.  This is the recommended way to use redux-injectors.
  *
  * @param {Object} options
- * @param {function} options.name The name to give the manager that shows up in the react devtools
+ * @param {string} options.name The name to give the manager that shows up in the react devtools
  * @param {string} options.key The key to inject the reducer under
- * @param {function} options.reducer The reducer that will be injected
- * @param {function} options.saga The saga that will be injected
+ * @param {function} [options.reducer] The reducer that will be injected
+ * @param {function} [options.saga] The saga that will be injected
  *
  * @example
  *
