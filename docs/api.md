@@ -89,10 +89,10 @@ have been injected.  This is the recommended way to use redux-injectors.
 #### Parameters
 
 -   `options` **[Object][28]** 
-    -   `options.name` **[function][29]** The name to give the manager that shows up in the react devtools
+    -   `options.name` **[string][30]** The name to give the manager that shows up in the react devtools
     -   `options.key` **[string][30]** The key to inject the reducer under
-    -   `options.reducer` **[function][29]** The reducer that will be injected
-    -   `options.saga` **[function][29]** The saga that will be injected
+    -   `options.reducer` **[function][29]?** The reducer that will be injected
+    -   `options.saga` **[function][29]?** The saga that will be injected
 
 #### Examples
 
